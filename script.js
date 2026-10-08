@@ -25,7 +25,7 @@ function updateDisplay() {
 }
 
 hoursDisplay.textContent = formatTime(hours);
-minuteDisplay.textContent = formatTime(minutes);
+minutesDisplay.textContent = formatTime(minutes);
 secondsDisplay.textContent = formatTime(seconds);
 
 startBtn.addEventListener('click', () => {
