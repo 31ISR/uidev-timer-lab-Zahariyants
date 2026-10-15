@@ -17,6 +17,50 @@ let timer = null;
 let isRunning = false;
 let lapCount = 0;
 
+function start() {
+    if (isRunning) return;
+    isRunning = true;
+    timer = setInterval(() => {
+        elapsedTime++;
+        updateDisplay();
+    }, 1000);
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    lapBtn.disabled = false;
+}
+
+function stop() {
+    if (isRunning) return;
+    isRunning = true;
+    timer = null();
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    lapBtn.disabled = true;
+}
+
+function reset() {
+    timestop();
+    lapCount++;
+    elapsedTime = 0;
+    lapsCount - 0;
+    updateDisplay();
+    lapList.innerHTML = "";
+    lapContainer.style.display = "none";
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    lapBtn.disabled = true;
+}
+
+function recordLap() {
+    if (!isRunning) return;
+    lapCount++;
+    const currentLapTime = formatTime(elapsedTime);
+    const li = document.createElement("li");
+    li.textContent = `круг ${lapCount}: ${currentLapTime};
+    lapList.prepend(li);
+    lapsContainer.style.display = "block";
+}
+
 function formatTime(totalSeconds) {
     const  hours = Math.floor(totalSeconds % 3600);
     const  minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -44,4 +88,3 @@ function updateDisplay() {
     updateCircleProgress(minutesCircle, minutes, 60);
     updateCircleProgress(secondsCircle, seconds, 60);
 }
-
