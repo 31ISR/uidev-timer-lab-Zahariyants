@@ -59,13 +59,9 @@ function recordLap() {
     li.textContent = `круг ${lapCount}: ${currentLapTime};
     lapList.prepend(li);
     lapsContainer.style.display = "block";
-}
-
-function formatTime(totalSeconds) {
-    const  hours = Math.floor(totalSeconds % 3600);
-    const  minutes = Math.floor((totalSeconds % 3600) / 60);
-    const  seconds = totalSeconds % 60;
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    lapBtn.disabled = true;
 }
 
 function updateCircleProgress(circle, value, max) {
@@ -73,6 +69,13 @@ function updateCircleProgress(circle, value, max) {
     const offset = circumference * (1 - fraction);
     circle.style.strokeDasharray = circumference;
     circle.style.strokeDashoffset = offset;
+}
+
+function formatTime(totalSeconds) {
+    const hours = Math.floor(totalSeconds % 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 function updateDisplay() {
@@ -88,3 +91,12 @@ function updateDisplay() {
     updateCircleProgress(minutesCircle, minutes, 60);
     updateCircleProgress(secondsCircle, seconds, 60);
 }
+
+startBtn.addEventListener("click", start);
+stopBtn.addEventListener("click", stop);
+lapBtn.addEventListener("click", recordLap);
+resetBtn.addEventListener("click", reset);
+
+updateDisplay();
+stopBtn.disabled = true;
+lapBtn.disabled = true;
